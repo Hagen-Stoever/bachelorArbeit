@@ -1,0 +1,39 @@
+client:
+  ssl:
+    key-store: /mnt/secrets/clientKeystore.pfx
+    trust-store: /mnt/secrets/clientTruststore.pfx
+
+platform-api:
+  web-client-timeout: 25s
+
+application:
+  reactor-hooks-enabled: false
+
+resource-server:
+  access-token-path: /auth/realms/internal/protocol/openid-connect/token
+  web-client-timeout: 10s
+
+heart-beat:
+  url-format: "    - \"%s\"\n"
+
+
+
+
+logging:
+  reactor-hooks-enabled: false
+  level:
+    org.springframework.cloud.netflix.zuul.filters.post.SendErrorFilter: error
+
+
+#DataBuffer
+spring:
+  application:
+    name: heartbeat-api-provider
+  sleuth:
+    enabled: false
+    reactor:
+      enabled: false
+  codec:
+    max-in-memory-size: 10MB
+  main:
+    web-application-type: none

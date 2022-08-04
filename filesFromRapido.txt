@@ -1,0 +1,11 @@
+The following files are copied from the rapido Team:
+ClientSslConfiguration
+ClientSslProperties
+SslConfiguration
+WebClientConfiguration
+LegacyWebClientFactory
+WebClientLogger
+KeycloakConfiguration - wurde kopiert aber angepasst
+KeyStoreUtils
+pom.xml - beide pom Dateien wurden kopiert und angepasst
+application.yaml - wurde kopiert aber angepasst

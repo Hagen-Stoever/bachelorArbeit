@@ -1,0 +1,18 @@
+#This configuration file is created by an automated openshift job.
+- type: http
+  id: {Insert Monitor Id} # ID used to uniquely identify this monitor in elasticsearch even if the config changes
+  name: {Insert Monitor Name} # Human readable display name for this service in Uptime UI and elsewhere
+  schedule: '{Insert Monitor Schedule}' # example '@every 5s' # every 5 seconds from start of beat
+  urls: # Configure URLs to ping
+{Insert APIs URl}
+  ssl:
+    certificate_authorities:
+      - /mnt/elastic-internal/kibana-certs/ca.crt
+      - /mnt/elastic-internal/elasticsearch-certs/ca.crt
+      - /usr/share/heartbeat/http-certs/ca.crt
+  enabled: true
+  oauth_enabled: true
+  ipv4: true
+  ipv6: true
+  mode: any
+  # For more options view the official documentation of heartbeat-http-monitor

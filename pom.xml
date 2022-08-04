@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>coba.frame.build</groupId>
+    <artifactId>coba-parent-configuration-plus</artifactId>
+    <version>14.0.1</version>
+  </parent>
+
+  <packaging>pom</packaging>
+  <groupId>coba.heartbeatapiprovider</groupId>
+  <artifactId>heartbeatapiprovider-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <url>api.commerzbank.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <mavenCompilerId>javac</mavenCompilerId>
+
+    <platform-api-common.version>1.7.4</platform-api-common.version>
+    <openapi-generator-maven-plugin.version>5.3.0</openapi-generator-maven-plugin.version>
+    <cdp-maven-plugin.version>1.0.3</cdp-maven-plugin.version>
+  </properties>
+
+  <modules>
+    <module>application</module>
+  </modules>
+
+  <profiles>
+    <!-- we need to disable doclint starting with JDK 8 because jax-b currently generates faulty javadocs -->
+    <profile>
+      <id>java8-disable-strict-javadoc</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <additionalparam>-Xdoclint:none</additionalparam>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.openapitools</groupId>
+          <artifactId>openapi-generator-maven-plugin</artifactId>
+          <version>${openapi-generator-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.commerzbank.deliverygenerator</groupId>
+          <artifactId>cdp-maven-plugin</artifactId>
+          <version>${cdp-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

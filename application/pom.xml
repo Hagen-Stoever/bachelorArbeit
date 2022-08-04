@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>coba.heartbeatapiprovider</groupId>
+    <artifactId>heartbeatapiprovider-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>heartbeatapiprovider-service</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <start-class>com.commerzbank.heartbeatapiprovider.StandaloneApplication</start-class>
+    <docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
+    <coba-api-spring-boot-http-communication-starter.version>2.2.6-4</coba-api-spring-boot-http-communication-starter.version>
+    <openapi-generator-maven-plugin.version>4.3.0</openapi-generator-maven-plugin.version>
+    <jjwt.version>0.11.2</jjwt.version>
+
+  </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>coba.api.midtier.sdk</groupId>
+            <artifactId>api-link-builder-sdk</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.10.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.dentrassi.crypto</groupId>
+            <artifactId>pem-keystore</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <version>1.18.24</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>3.4.19</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <!--<version>4.3.0</version>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+
+        <!-- swagger validation -->
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>2.0.26</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>2.5</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>io.github.hakky54</groupId>
+            <artifactId>sslcontext-kickstart</artifactId>
+            <version>7.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.hakky54</groupId>
+            <artifactId>sslcontext-kickstart-for-netty</artifactId>
+            <version>7.4.3</version>
+        </dependency>
+
+
+        <!--Reading Files-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+
+
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>heartbeat-api-provider</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <environmentVariables>
+                        <keystore-path>${project.build.testOutputDirectory}/jks/keystore.jks</keystore-path>
+                        <keystore-password>changeit</keystore-password>
+                        <truststore-path>${project.build.testOutputDirectory}/jks/truststore.jks</truststore-path>
+                        <truststore-password>changeit</truststore-password>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
+
+            <!-- generates API java interface + java models from swagger.json -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+
+                <configuration>
+                    <skipValidateSpec>true</skipValidateSpec>
+
+                    <output>${project.build.directory}/generated-sources</output>
+                    <modelNameSuffix>DTO</modelNameSuffix>
+                    <ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
+
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>generateInfoApi</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/oas/dataaccess/platformAPI.yaml</inputSpec>
+
+                            <modelPackage>com.commerzbank.heartbeatapiprovider.dataaccess.platformApi.model</modelPackage>
+                            <apiPackage>com.commerzbank.heartbeatapiprovider.dataaccess.platformApi.impl</apiPackage>
+                            <modelNamePrefix>PlatformApi</modelNamePrefix>
+
+                            <templateDirectory>src/main/resources/openapi-generator-client/</templateDirectory>
+
+                            <generatorName>java</generatorName>
+                            <library>webclient</library>
+
+                            <configOptions>
+                                <additional-properties>useSpringfox=false</additional-properties>
+                                <dateLibrary>java8</dateLibrary>
+                                <java8>true</java8>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+</project>
